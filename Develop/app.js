@@ -1,3 +1,4 @@
+const Employee = require("./lib/Employee")
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -11,46 +12,63 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
+function employeeInfo(){
+    let name = "";
+    let role = "";
+    let id = "";
+    let email = "";
+    let gitHub = "";
+
+    inquirer.prompt([{
+        type: "input",
+        message: "Enter a team member's name",
+        name: "name"
+        },
+        {
+        type: "list",
+        message: "Select the team member's role:",
+        name: "role",
+        choices: ["Manager","Engineer", "Intern"]
+        },
+        {
+        type: "input",
+        message: "Enter the team member's id",
+        name: "id"
+        },
+        {
+        type: "input",
+        message: "Enter the team member's email address:",
+        name: "email"
+        }
+    ]);
+}
 
 function writeToFile(fileName, data) {
     return fs.writeFileSync(fileName, data)
 }
 
-function init(){
-    mainHtml();
-    addEmployee();
-    const response = await inquire.prompt(questions);
-}
 
-function addEmployee(){
-    inquirer.prompt([{
-        message: "Enter team member's name",
-        name: "name"
-    },
-    {
-        type: "list",
-        message: "Select team member's role",
-        choices: [
-            "Engineer",
-            "Intern",
-            "Manager"
-        ],
-        name: "role"
-    },
-    {
-        message: "Enter team member's id",
-        name: "id"
-    },
-    {
-        message: "Enter team member's email address",
-        name: "email"
-}
-])
-init();
+
+// async function init() {
+//     const response = await inquire.prompt(questions);
+//     const apiRes = await axios.get('https://api.github.com/users/'+response.gitUsername);
+//         console.log(apiRes.data)
+//         console.log(response)
+//         writeToFile("gitHub.md", generateMarkdown(response))
+//     }
+
+// function init(){
+//     mainHtml();
+//     addEmployee();
+//     const response = inquire.prompt(questions);
+// }
+
+// init();
+// writeToFile();
+employeeInfo();
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
