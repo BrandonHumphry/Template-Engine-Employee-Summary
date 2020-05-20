@@ -5,7 +5,7 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-const employees = [];
+// const employees = [];
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -20,7 +20,6 @@ function employeeInfo(){
     let role = "";
     let id = "";
     let email = "";
-    let gitHub = "";
 
     inquirer.prompt([{
         type: "input",
@@ -43,32 +42,27 @@ function employeeInfo(){
         message: "Enter the team member's email address:",
         name: "email"
         }
-    ]);
-}
-
-function writeToFile(fileName, data) {
-    return fs.writeFileSync(fileName, data)
+    ])
+    // return data function?
 }
 
 
-
-// async function init() {
-//     const response = await inquire.prompt(questions);
-//     const apiRes = await axios.get('https://api.github.com/users/'+response.gitUsername);
-//         console.log(apiRes.data)
-//         console.log(response)
-//         writeToFile("gitHub.md", generateMarkdown(response))
-//     }
-
-// function init(){
-//     mainHtml();
-//     addEmployee();
-//     const response = inquire.prompt(questions);
-// }
-
-// init();
-// writeToFile();
 employeeInfo();
+
+function generateEmployee (name,role, id, email){
+    const employee = employee(name, role, id, email)
+}
+
+writeToFile();
+
+generateEmployee();
+
+
+// function writeToFile(fileName, data) {
+    //     return fs.writeFileSync(fileName, data)
+    // }
+
+    
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
